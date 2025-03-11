@@ -1,13 +1,13 @@
-FROM        aemdesign/java-ffmpeg:jdk11
+FROM        aemdesign/java-ffmpeg:jdk17
 
 LABEL   os="debian" \
-        java="oracle 11" \
+        java="oracle 17" \
         maintainer="devops <devops@aem.design>" \
         container.description="base image for aem with installed dependencies" \
         version="1.1.0" \
         imagename="aem-base" \
         test.command="java --version" \
-        test.command.verify="11."
+        test.command.verify="17."
 
 RUN     \
         echo ">>> SETUP: enable multiarch <<" && \

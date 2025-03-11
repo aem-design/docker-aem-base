@@ -1,6 +1,6 @@
 ## Debian with AEM
 
-[![build](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml/badge.svg?branch=jdk11)](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml)
+[![build](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml/badge.svg?branch=jdk17)](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml)
 [![github license](https://img.shields.io/github/license/aem-design/aem-base)](https://github.com/aem-design/aem-base) 
 [![github issues](https://img.shields.io/github/issues/aem-design/aem-base)](https://github.com/aem-design/aem-base) 
 [![github last commit](https://img.shields.io/github/last-commit/aem-design/aem-base)](https://github.com/aem-design/aem-base) 
