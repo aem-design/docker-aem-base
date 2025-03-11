@@ -2,11 +2,17 @@ Param(
   [string]$LOG_PATH = "${PWD}\logs",
   [string]$LOG_PEFIX = "docker",
   [string]$LOG_SUFFIX = ".log",
-  [string]$TAG = "jdk11",
+  [string]$TAG = "jdk17",
+  [string]$NAME = "aem",
   [string]$FILE = "Dockerfile",
   [string]$FUNCTIONS_URI = "https://github.com/aem-design/aemdesign-docker/releases/latest/download/functions.ps1",
-  [string]$COMMAND = "docker buildx build . -f .\${FILE} -t ${TAG}"
+  [string]$COMMAND = "docker buildx build . -f .\${FILE} -t "
 )
+
+$IMAGENAME=Select-String -path $FILE '.*imagename="(.*)".*' -AllMatches | Foreach-Object {$_.Matches} | Foreach-Object {$_.Groups[1].Value}
+$IMAGEVERSION=Select-String -path $FILE '.*version="(.*)".*' -AllMatches | Foreach-Object {$_.Matches} | Foreach-Object {$_.Groups[1].Value}
+
+$COMMAND="$COMMAND${IMAGENAME}:${IMAGEVERSION}"
 
 $SKIP_CONFIG = $true
 $PARENT_PROJECT_PATH = "."
@@ -18,5 +24,4 @@ printSectionLine "$COMMAND" "warn"
 
 Invoke-Expression -Command "$COMMAND" | Tee-Object -Append -FilePath "${LOG_FILE}"
 
-
-
+docker run -it --rm -v ${PWD}:/build/source:rw ${IMAGENAME}:${IMAGEVERSION} bash --login
