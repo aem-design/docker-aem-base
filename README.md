@@ -1,4 +1,4 @@
-## Debian with AEM
+## AEM Base
 
 [![build](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml/badge.svg?branch=jdk17)](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml)
 [![github license](https://img.shields.io/github/license/aem-design/aem-base)](https://github.com/aem-design/aem-base) 
@@ -9,11 +9,118 @@
 [![docker pulls](https://img.shields.io/docker/pulls/aemdesign/aem-base)](https://hub.docker.com/r/aemdesign/aem-base) 
 [![github release](https://img.shields.io/github/release/aem-design/aem-base)](https://github.com/aem-design/aem-base)
 
-This is docker image based on [aemdesign/java-ffmpeg](https://hub.docker.com/r/aemdesign/java-ffmpeg/) with AEM base libs
+Docker image based on [aemdesign/java-ffmpeg](https://hub.docker.com/r/aemdesign/java-ffmpeg/) with AEM base libraries for Forms processing.
+
+Docker image for linux/amd64 (also runs on Apple Silicon via Rosetta 2).
+
+## Docker Images
+
+Images are available on both registries:
+- **Docker Hub**: `aemdesign/aem-base`
+- **GitHub Container Registry**: `ghcr.io/aem-design/aem-base`
+
+### Tags
+
+- `latest` - Latest build from main branch
+- `jdk17` - JDK 17 branch
+- Version tags (pushed when git tags are created)
 
 ### Included Packages
 
-Following is the list of packages included
+* **AEM Forms libraries** - Required libraries for AEM Forms processing
+* **Java runtime** - Inherited from java-ffmpeg base image
+* **FFMPEG** - Inherited from java-ffmpeg base image
 
-* aem libs              - for aem forms processing
+## Development
+
+### CI/CD Pipeline
+
+The project uses GitHub Actions for continuous integration and deployment:
+
+- **Platform**: Images are built for `linux/amd64`
+- **Apple Silicon support**: Works seamlessly on M1/M2/M3/M4 Macs via Docker Desktop's Rosetta 2 emulation
+- **Automated testing**: Java and FFMPEG versions are verified before pushing
+- **Image analysis**: Uses `dive` for Docker image layer analysis
+- **Dual registry push**: Automatically pushes to Docker Hub and GitHub Container Registry
+- **Git tag versioning**: Pushing a git tag automatically creates a corresponding Docker image tag
+
+### Running on Apple Silicon Macs (M1/M2/M3/M4)
+
+This image is built for `linux/amd64` architecture but runs seamlessly on Apple Silicon Macs through **Rosetta 2** emulation in Docker Desktop.
+
+#### Prerequisites
+
+1. **Docker Desktop for Mac** (version 4.25.0 or later recommended)
+   - Download from: https://www.docker.com/products/docker-desktop
+
+2. **Rosetta 2** (usually already installed on modern macOS)
+   - To verify/install: `softwareupdate --install-rosetta`
+
+#### Enable Rosetta 2 in Docker Desktop
+
+1. Open **Docker Desktop**
+2. Go to **Settings** (⚙️ icon) → **General**
+3. Enable **"Use Rosetta for x86_64/amd64 emulation on Apple Silicon"**
+4. Click **Apply & Restart**
+
+![Docker Desktop Rosetta Setting](https://docs.docker.com/desktop/images/rosetta.png)
+
+#### Verify It's Working
+
+```bash
+# Pull and run the image
+docker pull aemdesign/aem-base:latest
+docker run --rm aemdesign/aem-base:latest uname -m
+
+# Expected output: x86_64 (running via Rosetta 2)
+```
+
+#### Performance Notes
+
+- **Rosetta 2 emulation** provides near-native performance for most workloads
+- First container start may be slightly slower (Rosetta translation cache warmup)
+- Subsequent starts are fast
+- **No code changes needed** - everything works transparently
+
+### Monitoring Pipeline Status
+
+Use the `get-action-logs.ps1` PowerShell script to monitor GitHub Actions workflow status and logs.
+
+#### Prerequisites
+
+- GitHub CLI (`gh`) must be installed and authenticated
+- Install: `winget install --id GitHub.cli`
+- Authenticate: `gh auth login`
+
+#### Quick Start
+
+```powershell
+# Check current commit's pipeline status (saves logs to logs/ folder by default)
+.\get-action-logs.ps1
+
+# Wait for pipeline to complete
+.\get-action-logs.ps1 -WaitForCompletion
+
+# Show logs in console
+.\get-action-logs.ps1 -ShowLogs
+
+# Force re-download logs
+.\get-action-logs.ps1 -Force
+```
+
+See full documentation: `Get-Help .\get-action-logs.ps1 -Full`
+
+### Creating a New Release
+
+```bash
+# Tag the commit
+git tag 1.0.0
+git push origin 1.0.0
+```
+
+This will automatically build and push versioned Docker images to both registries.
+
+## License
+
+See [LICENSE](LICENSE) file for details.
 
