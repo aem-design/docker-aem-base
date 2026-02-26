@@ -1,13 +1,13 @@
-FROM        aemdesign/java-ffmpeg:jdk17
+FROM        aemdesign/java-ffmpeg:jdk21
 
 LABEL   os="debian" \
-        java="oracle 17" \
+        java="oracle 21" \
         maintainer="devops <devops@aem.design>" \
         container.description="base image for aem with installed dependencies" \
         version="1.1.0" \
         imagename="aem-base" \
         test.command="java --version" \
-        test.command.verify="17."
+        test.command.verify="21."
 
 ENV TZ=UTC
 

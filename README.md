@@ -1,6 +1,6 @@
 ## AEM Base
 
-[![build](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml/badge.svg?branch=jdk17)](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml)
+[![build](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml/badge.svg?branch=jdk21)](https://github.com/aem-design/docker-aem-base/actions/workflows/build.yml)
 [![github license](https://img.shields.io/github/license/aem-design/aem-base)](https://github.com/aem-design/aem-base) 
 [![github issues](https://img.shields.io/github/issues/aem-design/aem-base)](https://github.com/aem-design/aem-base) 
 [![github last commit](https://img.shields.io/github/last-commit/aem-design/aem-base)](https://github.com/aem-design/aem-base) 
@@ -22,7 +22,7 @@ Images are available on both registries:
 ### Tags
 
 - `latest` - Latest build from main branch
-- `jdk17` - JDK 17 branch
+- `jdk21` - JDK 21 branch
 - Version tags (pushed when git tags are created)
 
 ### Included Packages
@@ -123,4 +123,3 @@ This will automatically build and push versioned Docker images to both registrie
 ## License
 
 See [LICENSE](LICENSE) file for details.
-
